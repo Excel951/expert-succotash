@@ -1,0 +1,12 @@
+# Calculate Q1 (25th percentile) and Q3 (75th percentile)
+Q1 = train_dataset_fill_simpleimputer['Emisi Savanna Api'].quantile(0.25)
+Q3 = train_dataset_fill_simpleimputer['Emisi Savanna Api'].quantile(0.75)
+IQR = Q3 - Q1
+
+# Calculate lower and upper bound to identify outliers
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+# Identify outliers
+outliers = train_dataset_fill_simpleimputer[(train_dataset_fill_simpleimputer['Emisi Savanna Api'] < lower_bound) | (train_dataset_fill_simpleimputer['Emisi Savanna Api'] > upper_bound)]
+outliers

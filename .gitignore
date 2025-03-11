@@ -1,4 +1,4 @@
-'cek outliers'
-features
-'remove outliers'
+cek outliers.txt
+features.txt
+remove outliers.txt
 .venv

@@ -1,0 +1,21 @@
+# 2. Winsorizing (Capping nilai ekstrem pada persentil 1% dan 99%)
+emisi_winsorized = np.clip(train_dataset_fill_simpleimputer['Emisi Savanna Api'],
+                           train_dataset_fill_simpleimputer['Emisi Savanna Api'].quantile(0.01),
+                           train_dataset_fill_simpleimputer['Emisi Savanna Api'].quantile(0.99))
+
+# 3. Transformasi Log1p
+emisi_transformed = np.log1p(emisi_winsorized)
+
+# 4. Visualisasi Setelah Winsorizing + Log1p
+plt.figure(figsize=(14,6))
+plt.subplot(1, 2, 1)
+sns.histplot(emisi_transformed, bins=30, kde=True, color='green')
+plt.title('Distribusi Setelah Winsorizing + Log1p')
+
+plt.subplot(1, 2, 2)
+sns.boxplot(y=emisi_transformed, color='green')
+plt.title('Boxplot Setelah Winsorizing + Log1p')
+plt.show()
+
+# 5. Replace Kolom pada DataFrame
+train_dataset_fill_simpleimputer['Emisi Savanna Api'] = emisi_transformed
